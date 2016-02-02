@@ -12,34 +12,34 @@ import java.util.Date;
  * @version     1.01
  */
 public class Employee {
-    String firstName;
-    String lastName;
-    public String ssn;
-    public Date birthDate;
-    boolean metWithHr;
-    boolean metDeptStaff;
-    boolean reviewedDeptPolicies;
-    boolean movedIn;
-    String cubeId;
-    Date currentDate;
+    private String firstName;
+    private String lastName;
+    private String ssn;
+    private Date birthDate;
+    private boolean metWithHr;
+    private boolean metDeptStaff;
+    private boolean reviewedDeptPolicies;
+    private boolean movedIn;
+    private String cubeId;
+    private String fmtDate;
 
-    public Employee() {
-        currentDate = new Date();
+    public void doOrientation(String cubeId, String date) {
+        meetWithHrForBenefitAndSalryInfo(date);
+        meetDepartmentStaff(date);
+        reviewDeptPolicies(date);
+        moveIntoCubicle(cubeId, date);
+        getStatus(date);
     }
 
     // Assume this must be performed first
-    public void meetWithHrForBenefitAndSalryInfo() {
-        SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
-        String fmtDate = sdf.format(currentDate);
+    private void meetWithHrForBenefitAndSalryInfo(String fmtDate) {
         System.out.println("Met with Hr on " + fmtDate);
         metWithHr = true;
     }
 
     // Assume this is must be performed second
-    public void meetDepartmentStaff() {
+    private void meetDepartmentStaff(String fmtDate) {
         if(metWithHr) {
-            SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
-            String fmtDate = sdf.format(currentDate);
             System.out.println("Met with Dept. Staff on " + fmtDate);
             metDeptStaff = true;
         } else {
@@ -49,10 +49,8 @@ public class Employee {
     }
 
     // Assume this must be performed third
-    public void reviewDeptPolicies() {
+    private void reviewDeptPolicies(String fmtDate) {
         if(metWithHr && metDeptStaff) {
-            SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
-            String fmtDate = sdf.format(currentDate);
             System.out.println("Reviewed Dept. Policies on " + fmtDate);
             reviewedDeptPolicies = true;
         } else {
@@ -63,10 +61,8 @@ public class Employee {
     }
 
     // Assume this must be performed 4th
-    public void moveIntoCubicle(String cubeId) {
+    private void moveIntoCubicle(String cubeId, String fmtDate) {
         if(metWithHr && metDeptStaff && reviewedDeptPolicies) {
-            SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
-            String fmtDate = sdf.format(currentDate);
             System.out.println("Moved into cube on " + fmtDate);
             this.cubeId = cubeId;
             this.movedIn = true;
@@ -79,10 +75,7 @@ public class Employee {
 
     }
 
-    public String getStatus() {
-        SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
-        String fmtDate = sdf.format(currentDate);
-
+    public String getStatus(String fmtDate) {
         if(metWithHr && metDeptStaff
            && reviewedDeptPolicies && movedIn) {
             return "Orientation is completed on: " + fmtDate;
@@ -90,4 +83,46 @@ public class Employee {
             return fmtDate + ": Orientation in progress...";
         }
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getSsn() {
+        return ssn;
+    }
+
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getCubeId() {
+        return cubeId;
+    }
+
+    public void setCubeId(String cubeId) {
+        this.cubeId = cubeId;
+    }
+    
+    
 }
